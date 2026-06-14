@@ -110,7 +110,7 @@ export default function TeacherDashboard() {
               <div>
                 <p className="text-emerald-100/80 text-xs font-semibold uppercase tracking-wide">Total Ganhos</p>
                 <p className="text-4xl font-black mt-1">
-                  {totalEarned.toLocaleString('pt-MZ')} <span className="text-xl font-semibold text-emerald-100/70">MZN</span>
+                  {totalEarned.toLocaleString('pt')} <span className="text-xl font-semibold text-emerald-100/70">MZN</span>
                 </p>
               </div>
               <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">

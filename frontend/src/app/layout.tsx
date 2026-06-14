@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Beconnect School – Escola Virtual Multidisciplinar',
-  description: 'A escola online do grupo Beconnect. Conectamos estudantes e professores em Moçambique.',
+  description: 'A plataforma de ensino online do grupo Beconnect. Conectamos estudantes e professores em todo o mundo.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

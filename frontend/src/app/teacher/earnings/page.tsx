@@ -85,12 +85,12 @@ export default function TeacherEarningsPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div>
                   <p className="text-emerald-100/70 text-xs font-semibold uppercase tracking-wide mb-1">Total Recebido</p>
-                  <p className="text-3xl font-black">{totalEarned.toLocaleString('pt-MZ')}</p>
+                  <p className="text-3xl font-black">{totalEarned.toLocaleString('pt')}</p>
                   <p className="text-emerald-100/70 text-xs mt-0.5">MZN</p>
                 </div>
                 <div>
                   <p className="text-emerald-100/70 text-xs font-semibold uppercase tracking-wide mb-1">MRR Activo</p>
-                  <p className="text-3xl font-black">{totalMrr.toLocaleString('pt-MZ')}</p>
+                  <p className="text-3xl font-black">{totalMrr.toLocaleString('pt')}</p>
                   <p className="text-emerald-100/70 text-xs mt-0.5">MZN / mês</p>
                 </div>
                 <div>
@@ -168,11 +168,11 @@ export default function TeacherEarningsPage() {
                           </div>
                           <div className="text-right shrink-0">
                             <p className="text-xs text-gray-400">Receita mensal</p>
-                            <p className="font-bold text-gray-900">{mrr.toLocaleString('pt-MZ')} MZN</p>
+                            <p className="font-bold text-gray-900">{mrr.toLocaleString('pt')} MZN</p>
                           </div>
                           <div className="text-right shrink-0">
                             <p className="text-xs text-gray-400">Tua parte ({commissionRate}%)</p>
-                            <p className="font-bold text-emerald-600">{share.toLocaleString('pt-MZ')} MZN</p>
+                            <p className="font-bold text-emerald-600">{share.toLocaleString('pt')} MZN</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
@@ -204,7 +204,7 @@ export default function TeacherEarningsPage() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-3xl font-black text-indigo-700">{teacherShare.toLocaleString('pt-MZ')}</p>
+                  <p className="text-3xl font-black text-indigo-700">{teacherShare.toLocaleString('pt')}</p>
                   <p className="text-xs text-indigo-400 mt-0.5">MZN previsto</p>
                 </div>
               </div>
@@ -222,7 +222,7 @@ export default function TeacherEarningsPage() {
               </div>
               <div className="card text-center py-4">
                 <DollarSign size={20} className="mx-auto mb-2 text-indigo-500" />
-                <p className="text-2xl font-black text-gray-900">{totalEarned.toLocaleString('pt-MZ')}</p>
+                <p className="text-2xl font-black text-gray-900">{totalEarned.toLocaleString('pt')}</p>
                 <p className="text-xs text-gray-500">Total histórico (MZN)</p>
               </div>
             </div>

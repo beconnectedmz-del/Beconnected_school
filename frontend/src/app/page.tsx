@@ -31,22 +31,22 @@ function BcLogo({ dark = false, size = 'md' }: { dark?: boolean; size?: 'sm' | '
 /* ─── Data ──────────────────────────────────────────────────────────── */
 const testimonials = [
   {
-    name: 'Beatriz Cossa', city: 'Maputo', role: 'Estudante 12ª classe',
+    name: 'Beatriz C.', city: 'Lisboa', role: 'Estudante universitária',
     initials: 'BC', gradient: 'from-orange-500 to-red-600', rating: 5,
-    result: 'Aprovada no exame nacional!',
-    text: 'Reprovei 2 vezes em Matemática. Depois de 3 meses com a Prof. Ana na Beconnect School, passei com 17 valores. Mudou literalmente a minha vida.',
+    result: 'Aprovada com distinção!',
+    text: 'Reprovei 2 vezes em Matemática. Depois de 3 meses com a Prof. Ana na Beconnect School, passei com distinção. Mudou literalmente a minha vida.',
   },
   {
-    name: 'Hélder Mutemba', city: 'Beira', role: 'Estudante universitário',
+    name: 'Hélder M.', city: 'São Paulo', role: 'Estudante universitário',
     initials: 'HM', gradient: 'from-secondary to-secondary-light', rating: 5,
     result: '+3 valores na média final',
     text: 'A IA de match encontrou o professor perfeito para o meu nível em Física. As aulas ao vivo permitem tirar dúvidas em tempo real — incrível.',
   },
   {
-    name: 'Felícia Mondlane', city: 'Nampula', role: 'Estudante de Inglês',
+    name: 'Felícia M.', city: 'Paris', role: 'Estudante de Inglês',
     initials: 'FM', gradient: 'from-emerald-500 to-teal-600', rating: 5,
     result: 'Conseguiu emprego internacional!',
-    text: 'Nunca pensei aprender inglês fluente vivendo em Nampula. A Beconnect School tornou possível com professores certificados online.',
+    text: 'Nunca pensei conseguir aprender inglês fluente online. A Beconnect School tornou possível com professores certificados de todo o mundo.',
   },
 ]
 
@@ -66,12 +66,12 @@ const disciplines = [
 ]
 
 const activityFeed = [
-  { name: 'Maria C.', city: 'Maputo',    action: 'inscreveu-se em',      course: 'Matemática 12ª',        time: '2min'  },
-  { name: 'João M.',  city: 'Beira',     action: 'completou',             course: 'Python do Zero',        time: '5min'  },
-  { name: 'Ana S.',   city: 'Nampula',   action: 'avaliou com ⭐⭐⭐⭐⭐', course: 'Inglês Conversacional', time: '8min'  },
-  { name: 'Pedro F.', city: 'Tete',      action: 'inscreveu-se em',      course: 'Física Avançada',       time: '12min' },
-  { name: 'Carla B.', city: 'Quelimane', action: 'completou aula em',    course: 'Química',               time: '15min' },
-  { name: 'Miguel A.',city: 'Maputo',    action: 'inscreveu-se em',      course: 'Programação Web',       time: '19min' },
+  { name: 'Maria C.', city: 'Lisboa',       action: 'inscreveu-se em',      course: 'Matemática Avançada',   time: '2min'  },
+  { name: 'João M.',  city: 'São Paulo',    action: 'completou',             course: 'Python do Zero',        time: '5min'  },
+  { name: 'Ana S.',   city: 'Porto',        action: 'avaliou com ⭐⭐⭐⭐⭐', course: 'Inglês Conversacional', time: '8min'  },
+  { name: 'Pedro F.', city: 'Luanda',       action: 'inscreveu-se em',      course: 'Física Avançada',       time: '12min' },
+  { name: 'Carla B.', city: 'Paris',        action: 'completou aula em',    course: 'Química',               time: '15min' },
+  { name: 'Miguel A.',city: 'Londres',      action: 'inscreveu-se em',      course: 'Programação Web',       time: '19min' },
 ]
 
 const featuredCourses = [
@@ -211,7 +211,7 @@ export default function LandingPage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 text-white/90 text-xs font-bold px-4 py-2 rounded-full mb-7 shadow-lg animate-fade-in">
               <Sparkles size={13} className="text-primary" />
-              Escola Virtual do Grupo Beconnect · Moçambique
+              Escola Virtual do Grupo Beconnect · Internacional
               <span className="bg-primary text-white text-[10px] px-2 py-0.5 rounded-full font-black ml-1">NOVO</span>
             </div>
 
@@ -220,12 +220,12 @@ export default function LandingPage() {
               <span style={{ background: 'linear-gradient(90deg, #F47920, #F69040, #FFB347)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 melhores professores
               </span><br />
-              de Moçambique
+              do mundo
             </h1>
 
             <p className="text-base md:text-lg text-white/70 mb-8 leading-relaxed animate-fade-up" style={{ animationDelay: '0.1s' }}>
               Aulas ao vivo, cursos gravados e inteligência artificial adaptativa —
-              tudo numa só plataforma feita para Moçambique.
+              tudo numa só plataforma para estudantes de todo o mundo.
             </p>
 
             {/* CTAs */}
@@ -498,7 +498,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <h2 className="text-4xl md:text-5xl font-black text-secondary mb-4">12 disciplinas. Infinitas possibilidades.</h2>
-            <p className="text-gray-500 max-w-lg mx-auto text-lg">Professores certificados em todas as áreas do currículo moçambicano e além.</p>
+            <p className="text-gray-500 max-w-lg mx-auto text-lg">Professores certificados em todas as áreas do conhecimento, para estudantes de todo o mundo.</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {disciplines.map((d) => (

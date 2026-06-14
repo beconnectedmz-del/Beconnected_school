@@ -243,7 +243,7 @@ export default function TeacherCoursesPage() {
                         <div className="flex items-center justify-center gap-1 text-gray-600 mb-1">
                           <DollarSign size={11} />
                         </div>
-                        <p className="text-xs font-bold text-gray-900">{(c.monthly_revenue ?? 0).toLocaleString('pt-MZ')}</p>
+                        <p className="text-xs font-bold text-gray-900">{(c.monthly_revenue ?? 0).toLocaleString('pt')}</p>
                         <p className="text-[10px] text-gray-400">MZN/mês</p>
                       </div>
                     </div>
