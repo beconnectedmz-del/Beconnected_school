@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply scroll-smooth; }
+  body { @apply bg-gray-50 text-gray-900 antialiased; }
+
+  /* Better font rendering */
+  * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+}
+
+@layer components {
+  /* ── Buttons ─────────────────────────────────────────── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5
+           font-semibold transition-all duration-200 focus-visible:outline-none
+           focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50
+           disabled:pointer-events-none select-none;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary-dark shadow-md shadow-primary/20
+           hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-px
+           focus-visible:ring-primary active:translate-y-0;
+  }
+  .btn-outline {
+    @apply btn border-2 border-primary text-primary hover:bg-primary/10
+           focus-visible:ring-primary;
+  }
+  .btn-ghost {
+    @apply btn text-gray-600 hover:bg-gray-100 hover:text-gray-900;
+  }
+
+  /* ── Cards ───────────────────────────────────────────── */
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6;
+  }
+  .card-hover {
+    @apply card hover:shadow-card-lift hover:-translate-y-0.5 transition-all duration-300;
+  }
+
+  /* ── Forms ───────────────────────────────────────────── */
+  .input {
+    @apply w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm bg-white
+           placeholder:text-gray-400 focus:outline-none focus:ring-2
+           focus:ring-primary/40 focus:border-primary transition-all;
+  }
+  .label {
+    @apply block text-sm font-semibold text-gray-700 mb-1.5;
+  }
+
+  /* ── Badges ──────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full;
+  }
+  .badge-orange { @apply badge bg-orange-100 text-orange-700; }
+  .badge-blue   { @apply badge bg-blue-100 text-blue-700; }
+  .badge-green  { @apply badge bg-emerald-100 text-emerald-700; }
+  .badge-red    { @apply badge bg-red-100 text-red-700; }
+  .badge-purple { @apply badge bg-purple-100 text-purple-700; }
+
+  /* ── Glassmorphism ───────────────────────────────────── */
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+  }
+  .glass-dark {
+    @apply bg-black/20 backdrop-blur-lg border border-white/10;
+  }
+
+  /* ── Gradient text ───────────────────────────────────── */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+  .gradient-text-warm {
+    @apply bg-gradient-to-r from-yellow-300 via-orange-300 to-pink-300 bg-clip-text text-transparent;
+  }
+
+  /* ── Sidebar nav item ────────────────────────────────── */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600
+           hover:bg-primary/10 hover:text-primary text-sm font-medium
+           transition-all duration-150 cursor-pointer;
+  }
+  .nav-item-active {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-primary text-sm
+           font-semibold bg-primary/10 transition-all duration-150 cursor-pointer;
+  }
+
+  /* ── Stat card ───────────────────────────────────────── */
+  .stat-card {
+    @apply card flex flex-col gap-1 hover:shadow-md transition-shadow;
+  }
+
+  /* ── Scarcity pulse ──────────────────────────────────── */
+  .scarcity-dot {
+    @apply relative inline-flex rounded-full h-2 w-2 bg-red-500;
+  }
+  .scarcity-dot::before {
+    content: '';
+    @apply animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75;
+  }
+}
+
+@layer utilities {
+  /* Ticker overflow clip */
+  .ticker-clip { overflow: hidden; }
+
+  /* Gradient border */
+  .border-gradient {
+    border: 1.5px solid transparent;
+    background-clip: padding-box;
+    background-image: linear-gradient(white, white),
+                      linear-gradient(135deg, #2563eb, #7c3aed);
+    background-origin: border-box;
+  }
+
+  /* Custom scrollbar */
+  .scrollbar-thin::-webkit-scrollbar       { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { @apply bg-gray-300 rounded-full; }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { @apply bg-gray-400; }
+
+  /* Shimmer effect for skeleton loaders */
+  .shimmer-bg {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+}
