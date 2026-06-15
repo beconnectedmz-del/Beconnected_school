@@ -2,7 +2,10 @@ package handlers
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"time"
 
@@ -371,4 +374,71 @@ func getBcryptCost() (int, error) {
 
 func parseUUID(s string) (uuid.UUID, error) {
 	return uuid.Parse(s)
+}
+
+// ─── Google OAuth ─────────────────────────────────────────────────────────────
+
+func (h *AuthHandler) GoogleLogin(c *fiber.Ctx) error {
+	var body struct {
+		IDToken string `json:"id_token"`
+		Role    string `json:"role"`
+	}
+	if err := c.BodyParser(&body); err != nil || body.IDToken == "" {
+		return fiber.NewError(fiber.StatusBadRequest, "id_token obrigatório")
+	}
+	if body.Role == "" {
+		body.Role = "student"
+	}
+
+	// Verify token with Google
+	resp, err := http.Get("https://oauth2.googleapis.com/tokeninfo?id_token=" + body.IDToken)
+	if err != nil {
+		return fiber.NewError(fiber.StatusUnauthorized, "não foi possível verificar token Google")
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return fiber.NewError(fiber.StatusUnauthorized, "token Google inválido ou expirado")
+	}
+
+	raw, _ := io.ReadAll(resp.Body)
+	var g struct {
+		Sub           string `json:"sub"`
+		Email         string `json:"email"`
+		EmailVerified string `json:"email_verified"`
+		Name          string `json:"name"`
+		Picture       string `json:"picture"`
+		Aud           string `json:"aud"`
+	}
+	if err := json.Unmarshal(raw, &g); err != nil || g.Email == "" {
+		return fiber.NewError(fiber.StatusUnauthorized, "resposta Google inválida")
+	}
+
+	// Validate audience matches our client ID
+	expectedAud := os.Getenv("GOOGLE_CLIENT_ID")
+	if expectedAud != "" && g.Aud != expectedAud {
+		return fiber.NewError(fiber.StatusUnauthorized, "client_id não autorizado")
+	}
+
+	role := models.Role(body.Role)
+	if role != models.RoleStudent && role != models.RoleTeacher {
+		role = models.RoleStudent
+	}
+
+	user, err := h.userRepo.FindOrCreateGoogle(c.Context(), g.Email, g.Name, g.Sub, role)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, "erro ao processar utilizador")
+	}
+
+	h.secRepo.LogEvent(c.Context(), models.SecurityEvent{
+		UserID:    &user.ID,
+		EventType: "google_login",
+		IPAddress: c.IP(),
+		UserAgent: string(c.Request().Header.UserAgent()),
+	})
+
+	tokens, err := h.generateTokens(c.Context(), user)
+	if err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, "erro ao gerar tokens")
+	}
+	return c.JSON(tokens)
 }

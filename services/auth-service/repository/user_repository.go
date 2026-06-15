@@ -98,6 +98,40 @@ func (r *UserRepository) MarkEmailVerified(ctx context.Context, id uuid.UUID) er
 	return err
 }
 
+// FindOrCreateGoogle finds a user by email (Google login) or creates one.
+// Google users have no password — we store a sentinel hash that never matches.
+func (r *UserRepository) FindOrCreateGoogle(ctx context.Context, email, fullName, googleSub string, role models.Role) (*models.User, error) {
+	user := &models.User{}
+	err := r.db.QueryRow(ctx,
+		`SELECT id, email, password_hash, role, status, email_verified, last_login_at, created_at, updated_at
+		 FROM users WHERE email = $1`, email,
+	).Scan(&user.ID, &user.Email, &user.PasswordHash, &user.Role,
+		&user.Status, &user.EmailVerified, &user.LastLoginAt, &user.CreatedAt, &user.UpdatedAt)
+	if err == nil {
+		// user exists — update last login
+		_ = r.UpdateLastLogin(ctx, user.ID)
+		return user, nil
+	}
+	if !errors.Is(err, pgx.ErrNoRows) {
+		return nil, err
+	}
+	// create new user — google_oauth sentinel as password
+	err = r.db.QueryRow(ctx,
+		`INSERT INTO users (email, password_hash, role, status, email_verified)
+		 VALUES ($1, 'google_oauth', $2, 'active', TRUE)
+		 RETURNING id, email, password_hash, role, status, email_verified, last_login_at, created_at, updated_at`,
+		email, role,
+	).Scan(&user.ID, &user.Email, &user.PasswordHash, &user.Role,
+		&user.Status, &user.EmailVerified, &user.LastLoginAt, &user.CreatedAt, &user.UpdatedAt)
+	if err != nil {
+		if isPgDuplicate(err) {
+			return nil, ErrDuplicate
+		}
+		return nil, err
+	}
+	return user, nil
+}
+
 func isPgDuplicate(err error) bool {
 	return err != nil && len(err.Error()) > 0 &&
 		(contains(err.Error(), "23505") || contains(err.Error(), "duplicate key"))

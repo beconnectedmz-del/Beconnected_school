@@ -90,13 +90,14 @@ func main() {
 	auth := app.Group("/auth", authLimiter)
 
 	// ── Public auth routes ─────────────────────────────────────────────────────
-	auth.Post("/register",       authHandler.Register)
-	auth.Post("/login",          authHandler.Login)
-	auth.Post("/2fa/login",      authHandler.ValidateTOTPLogin)
-	auth.Post("/refresh",        authHandler.RefreshToken)
-	auth.Post("/verify-email",   authHandler.VerifyEmail)
+	auth.Post("/register",        authHandler.Register)
+	auth.Post("/login",           authHandler.Login)
+	auth.Post("/google",          authHandler.GoogleLogin)
+	auth.Post("/2fa/login",       authHandler.ValidateTOTPLogin)
+	auth.Post("/refresh",         authHandler.RefreshToken)
+	auth.Post("/verify-email",    authHandler.VerifyEmail)
 	auth.Post("/forgot-password", authHandler.ForgotPassword)
-	auth.Post("/reset-password", authHandler.ResetPassword)
+	auth.Post("/reset-password",  authHandler.ResetPassword)
 
 	// ── Authenticated auth routes ──────────────────────────────────────────────
 	protected := auth.Group("/", middleware.Protected())

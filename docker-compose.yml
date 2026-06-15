@@ -114,6 +114,7 @@ services:
       BCRYPT_COST: ${BCRYPT_COST:-12}
       NOTIFICATION_SERVICE_URL: http://notification-service:8087
       FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     depends_on:
       postgres:
         condition: service_healthy
@@ -308,6 +309,7 @@ services:
     restart: unless-stopped
     environment:
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8080}
+      NEXT_PUBLIC_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     ports:
       - "3002:3000"
     depends_on:

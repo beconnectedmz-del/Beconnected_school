@@ -95,6 +95,7 @@ func main() {
 	})
 
 	// ── Rotas sem autenticação ──────────────────────────────────────────────────
+	app.Post("/auth/google", proxyTo("auth", false))
 	app.All("/auth/*", proxyTo("auth", false))
 	app.Get("/teachers/list", proxyTo("users", false))
 	app.Get("/teachers/:id", proxyTo("users", false))
